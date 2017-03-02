@@ -1,0 +1,20 @@
+{
+    "name": "zhukmax/session",
+    "description": "PHP package for session",
+    "keywords": ["session", "session store", "session management"],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Max Zhuk",
+            "email": "zhukmax@ya.ru"
+        }
+    ],
+    "require": {
+        "php": ">=5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Session\\": "src/"
+        }
+    }
+}
