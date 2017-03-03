@@ -27,6 +27,14 @@ class Adapter implements AdapterInterface
     }
 
     /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->_id;
+    }
+
+    /**
      * @param string $name
      * @return string
      */
@@ -95,14 +103,6 @@ class Adapter implements AdapterInterface
             default:
                 return false;
         }
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->_id;
     }
 
     /**
