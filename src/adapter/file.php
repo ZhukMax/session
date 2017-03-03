@@ -1,12 +1,12 @@
 <?php
-namespace ZhukMax\Session\Adapter;
+namespace ZhukMax\Session;
 
-use ZhukMax\Session\Adapter;
+use ZhukMax\Session;
 
 /**
  * Class File
- * @package ZhukMax\Session\Adapter
+ * @package ZhukMax\Session
  */
-class File extends Adapter
+class File extends Session
 {
 }

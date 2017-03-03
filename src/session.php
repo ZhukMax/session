@@ -1,7 +1,7 @@
 <?php
-namespace ZhukMax\Session;
+namespace ZhukMax;
 
-class Adapter implements AdapterInterface
+class Session implements AdapterInterface
 {
     protected $_id;
 

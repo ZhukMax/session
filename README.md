@@ -11,7 +11,7 @@ composer require zhukmax/session
 ## Use
 
 ```php
-use ZhukMax\Session\Adapter\File;
+use ZhukMax\Session\File;
 
 $session = new File([
         "id" => "my-app"
