@@ -10,11 +10,12 @@
         }
     ],
     "require": {
-        "php": ">=5.5"
+        "php": ">=5.4",
+        "predis/predis": "v1.1.1"
     },
     "autoload": {
         "psr-4": {
-            "Session\\": "src/"
+            "ZhukMax\\Session\\": "src/"
         }
     }
 }
