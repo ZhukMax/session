@@ -6,7 +6,7 @@ class Session implements AdapterInterface
     protected $_id;
 
     /**
-     * Adapter constructor.
+     * Session constructor.
      * @param array $options
      */
     public function __construct($options)
