@@ -51,6 +51,7 @@ $session = new Session([
     'user'     => 'username',
     'password' => 'simple-pass',
     'table'    => 'sessions',
+    'column'   => ['id' => 'id'],
     'id'       => 'my-app'
 ]);
 

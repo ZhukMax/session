@@ -21,6 +21,26 @@ class Sql extends Session
     protected $table;
 
     /**
+     * @var string
+     */
+    protected $column_id;
+
+    /**
+     * @var string
+     */
+    protected $column_data;
+
+    /**
+     * @var string
+     */
+    protected $column_created_at;
+
+    /**
+     * @var string
+     */
+    protected $column_modified_at;
+
+    /**
      * Sql constructor.
      *
      * @param array $options
@@ -54,10 +74,49 @@ class Sql extends Session
             throw new Exception('DB Error: ' . $e->getMessage());
         }
 
+        /**
+         * Name of table for session data
+         */
         if (!isset($options['table']) || empty($options['table']) || !is_string($options['table'])) {
             throw new Exception("Parameter 'table' is required and it must be a non empty string");
         } else {
             $this->table = $options['table'];
+        }
+
+        /**
+         * Name of session's id column
+         */
+        if (!isset($options['column']['id']) || empty($options['column']['id']) || !is_string($options['column']['id'])) {
+            $this->column_id = 'session_id';
+        } else {
+            $this->column_id = $options['column']['id'];
+        }
+
+        /**
+         * Name of session's data column
+         */
+        if (!isset($options['column']['data']) || empty($options['column']['data']) || !is_string($options['column']['data'])) {
+            $this->column_data = 'data';
+        } else {
+            $this->column_data = $options['column']['data'];
+        }
+
+        /**
+         * Name of session's created time column
+         */
+        if (!isset($options['column']['created_at']) || empty($options['column']['created_at']) || !is_string($options['column']['created_at'])) {
+            $this->column_created_at = 'created_at';
+        } else {
+            $this->column_created_at = $options['column']['created_at'];
+        }
+
+        /**
+         * Name of session's modified time column
+         */
+        if (!isset($options['column']['modified_at']) || empty($options['column']['modified_at']) || !is_string($options['column']['modified_at'])) {
+            $this->column_modified_at = 'modified_at';
+        } else {
+            $this->column_modified_at = $options['column']['modified_at'];
         }
 
         parent::__construct($options);
@@ -103,7 +162,11 @@ class Sql extends Session
         $maxLifetime = (int) ini_get('session.gc_maxlifetime');
         $sql = sprintf(
             'SELECT %s FROM %s WHERE %s = ? AND COALESCE(%s, %s) + %d >= ? LIMIT 1',
-            'data', $this->table, 'id', 'modified_at', 'created_at',
+            $this->column_data,
+            $this->table,
+            $this->column_id,
+            $this->column_modified_at,
+            $this->column_created_at,
             $maxLifetime
         );
         $query = $this->connection->prepare($sql);
@@ -129,7 +192,8 @@ class Sql extends Session
     {
         $sql = sprintf(
             'SELECT COUNT(*) FROM %s WHERE %s = ?',
-            $this->table, 'id'
+            $this->table,
+            $this->column_id
         );
 
         $query = $this->connection->prepare($sql);
@@ -140,7 +204,10 @@ class Sql extends Session
         if (!empty($row) && intval($row[0]) > 0) {
             $sql = sprintf(
                 'UPDATE %s SET %s = ?, %s = ? WHERE %s = ?',
-                $this->table, 'data', 'modified_at', 'id'
+                $this->table,
+                $this->column_data,
+                $this->column_modified_at,
+                $this->column_id
             );
 
             $query = $this->connection->prepare($sql);
@@ -148,7 +215,11 @@ class Sql extends Session
         } else {
             $sql = sprintf(
                 'INSERT INTO %s (%s, %s, %s, %s) VALUES (?, ?, ?, ?)',
-                $this->table, 'id', 'data', 'created_at', 'modified_at'
+                $this->table,
+                $this->column_id,
+                $this->column_data,
+                $this->column_created_at,
+                $this->column_modified_at
             );
 
             $query = $this->connection->prepare($sql);
@@ -174,7 +245,8 @@ class Sql extends Session
 
         $sql = sprintf(
             'DELETE FROM %s WHERE %s = ?',
-            $this->table, 'id'
+            $this->table,
+            $this->column_id
         );
         $query = $this->connection->prepare($sql);
         $result = $query->execute([$sessionId]);
@@ -192,7 +264,10 @@ class Sql extends Session
     {
         $sql = sprintf(
             'DELETE FROM %s WHERE COALESCE(%s, %s) + %d < ?',
-            $this->table, 'modified_at', 'created_at', $maxLifetime
+            $this->table,
+            $this->column_modified_at,
+            $this->column_created_at,
+            $maxLifetime
         );
         $query = $this->connection->prepare($sql);
         return $query->execute([time()]);
