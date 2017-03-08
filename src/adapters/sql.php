@@ -1,14 +1,14 @@
 <?php
-namespace ZhukMax\Session;
+namespace ZhukMax\Session\Adapters;
 
-use ZhukMax\Session;
+use ZhukMax\Session\Adapter;
 use Exception;
 
 /**
  * Class Sql
  * @package ZhukMax\Session
  */
-class Sql extends Session
+class Sql extends Adapter
 {
     /**
      * @var \PDO

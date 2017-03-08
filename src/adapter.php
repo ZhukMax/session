@@ -1,7 +1,7 @@
 <?php
-namespace ZhukMax;
+namespace ZhukMax\Session;
 
-class Session implements AdapterInterface
+class Adapter implements AdapterInterface
 {
     protected $_id;
 
@@ -151,12 +151,11 @@ class Session implements AdapterInterface
      * Alias for get()
      *
      * @param string $name
-     * @param $default
      * @return mixed
      */
-    public function __get($name, $default = null)
+    public function __get($name)
     {
-        return $this->get($name, $default);
+        return $this->get($name);
     }
 
     /**

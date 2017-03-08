@@ -1,14 +1,14 @@
 <?php
-namespace ZhukMax\Session;
+namespace ZhukMax\Session\Adapters;
 
-use ZhukMax\Session;
+use ZhukMax\Session\Adapter;
 use Predis\Client as RedisClient;
 
 /**
  * Class Redis
  * @package ZhukMax\Session
  */
-class Redis extends Session
+class Redis extends Adapter
 {
     protected $redis;
     protected $lifetime;

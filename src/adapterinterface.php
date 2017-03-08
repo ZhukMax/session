@@ -1,5 +1,5 @@
 <?php
-namespace ZhukMax;
+namespace ZhukMax\Session;
 
 /**
  * Interface AdapterInterface

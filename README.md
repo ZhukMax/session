@@ -1,8 +1,8 @@
 # Session
 Php package with session adapters:
-* `\ZhukMax\Session\File` - Store session in plain files
-* `\ZhukMax\Session\Redis` - Store session in Redis
-* `\ZhukMax\Session\Sql` - Store session in Sql Data Base like Mysql etc.
+* `\ZhukMax\Session\Adapters\File` - Store session in plain files
+* `\ZhukMax\Session\Adapters\Redis` - Store session in Redis
+* `\ZhukMax\Session\Adapters\Sql` - Store session in Sql Data Base like Mysql etc.
 
 ## Install
 
@@ -16,7 +16,7 @@ composer require zhukmax/session
 ```php
 <?php
 
-use ZhukMax\Session\File as Session;
+use ZhukMax\Session\Adapters\File as Session;
 
 $session = new Session([
         "id" => "my-app"
@@ -44,7 +44,7 @@ CREATE TABLE `sessions` (
 ```php
 <?php
 
-use ZhukMax\Session\Sql as Session;
+use ZhukMax\Session\Adapters\Sql as Session;
 
 $session = new Session([
     'dsn'      => 'mysql:dbname=testdb;host=127.0.0.1',
